@@ -49,7 +49,7 @@ export class SeedService {
       users.push( this.userRepository.create( user ) )
     });
 
-    const dbUsers = await this.userRepository.save( seedUsers )
+    const dbUsers = await this.userRepository.save( users )
 
     return dbUsers[0];
   }
@@ -58,13 +58,7 @@ export class SeedService {
   private async insertNewProducts( user: User ) {
     await this.productsService.deleteAllProducts();
 
-    const products = initialData.products;
-
     const insertPromises = [];
-
-    products.forEach( product => {
-      insertPromises.push( this.productsService.create( product, user ) );
-    });
 
     await Promise.all( insertPromises );
 

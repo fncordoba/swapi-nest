@@ -25,12 +25,11 @@ export class ProductsController {
     @Body() createProductDto: CreateProductDto,
     @GetUser() user: User,
   ) {
-    return this.productsService.create(createProductDto, user );
+    return ''
   }
 
   @Get()
   findAll( @Query() paginationDto:PaginationDto ) {
-    // console.log(paginationDto)
     return this.productsService.findAll( paginationDto );
   }
 

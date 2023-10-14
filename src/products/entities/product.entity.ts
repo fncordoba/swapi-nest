@@ -1,8 +1,7 @@
-import { BeforeInsert, BeforeUpdate, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 
 import { ProductImage } from './';
-import { User } from '../../auth/entities/user.entity';
 
 @Entity({ name: 'products' })
 export class Product {
@@ -96,15 +95,6 @@ export class Product {
         { cascade: true, eager: true }
     )
     images?: ProductImage[];
-
-
-    @ManyToOne(
-        () => User,
-        ( user ) => user.product,
-        { eager: true }
-    )
-    user: User
-
 
     @BeforeInsert()
     checkSlugInsert() {

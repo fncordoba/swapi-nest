@@ -29,29 +29,6 @@ export class ProductsService {
 
 
 
-  async create(createProductDto: CreateProductDto, user: User) {
-    
-    try {
-      const { images = [], ...productDetails } = createProductDto;
-
-      const product = this.productRepository.create({
-        ...productDetails,
-        images: images.map( image => this.productImageRepository.create({ url: image }) ),
-        user,
-      });
-      
-      await this.productRepository.save( product );
-
-      return { ...product, images };
-      
-    } catch (error) {
-      this.handleDBExceptions(error);
-    }
-
-
-  }
-
-
   async findAll( paginationDto: PaginationDto ) {
 
     const { limit = 10, offset = 0 } = paginationDto;
@@ -127,9 +104,6 @@ export class ProductsService {
           image => this.productImageRepository.create({ url: image }) 
         )
       }
-      
-      // await this.productRepository.save( product );
-      product.user = user;
       
       await queryRunner.manager.save( product );
 

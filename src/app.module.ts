@@ -1,15 +1,15 @@
-import { join } from 'path';
-
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ServeStaticModule } from '@nestjs/serve-static';
 
 import { ProductsModule } from './products/products.module';
 import { CommonModule } from './common/common.module';
 import { SeedModule } from './seed/seed.module';
 import { FilesModule } from './files/files.module';
 import { AuthModule } from './auth/auth.module';
+import { MoviesModule } from './movies/movies.module';
+import { User } from './auth/entities/user.entity';
+import { Movie } from './movies/entities/movie.entity';
 
 @Module({
   imports: [
@@ -24,10 +24,7 @@ import { AuthModule } from './auth/auth.module';
       password: process.env.DB_PASSWORD,      
       autoLoadEntities: true,
       synchronize: true,
-    }),
-
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname,'..','public'), 
+      entities: [User, Movie]
     }),
 
     ProductsModule,
@@ -39,6 +36,8 @@ import { AuthModule } from './auth/auth.module';
     FilesModule,
 
     AuthModule,
+
+    MoviesModule,
 
   ],
 })
