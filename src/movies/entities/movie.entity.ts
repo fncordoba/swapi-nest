@@ -24,7 +24,7 @@ export class Movie {
   @ApiProperty({ description: 'The opening crawl text of the movie' })
   @IsString()
   @Column({ type: 'text' })
-  openingiCrawl: string;
+  openingCrawl: string;
 
   @ApiProperty({ description: 'The director of the movie' })
   @IsString()
